@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+    db:
+        image: mysql
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: codexdb
+    redis:
+        image: redis:alpine
+    php:
+        build: php5.6-fpm
+        links:
+            - db:mysqldb
+            - redis
+        volumes:
+            - ./www:/var/www/codex
+            - ./logs/codex:/var/www/codex/logs
+    nginx:
+        build: nginx
+        ports:
+            - 8081:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+
+    phpmyadmin:
+        build: ./phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 8082:80
+        links:
+            - db
