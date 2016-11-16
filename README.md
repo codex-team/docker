@@ -31,8 +31,6 @@ https://hub.docker.com/r/codexteam/ifmo.su/
 11. chmod 777 www/application/logs/ www/application/cache/
 
 12. cp configs/oauth.php  www/application/config/oauth.php
-  > (не забыть ее после этого дополнить APP_ID=4874439, APP_SECRET=w6FvjB8uQDFCNN8n4vCO)
-
 
 > Сайт: http://codex.dev:8081/
 
