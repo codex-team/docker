@@ -18,6 +18,7 @@ https://hub.docker.com/r/codexteam/ifmo.su/
 
 6. (в отдельной консоли, не закрывая предыдущую):
   > docker_db_1 - это имя контейнера с php. Он может называться по-другому. Узнать командой docker ps
+  
   > docker exec -i docker_db_1 mysql -uroot -proot < configs/codex-db.sql
   
 7. echo "127.0.0.1   codex.dev" » /etc/hosts
