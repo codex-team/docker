@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM php:7-fpm
 
 MAINTAINER Codex Team <github.com/codex-team>
 
@@ -7,11 +7,23 @@ RUN echo "deb http://ftp.ru.debian.org/debian/ jessie main contrib non-free" >> 
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
-    libz-dev
+    libz-dev \
+    libmemcached-dev
 
-# Install memcached
-RUN pecl install memcache
-RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
+# Install Memcache for php 7
+RUN git clone https://github.com/php-memcached-dev/php-memcached \
+    && cd php-memcached \
+    && git checkout php7 \
+    && phpize \
+    && PATH=/opt/sp/php7.1/bin:$PATH ./configure --disable-memcached-sasl \
+    && make \
+    && make install
+
+RUN pecl install -o -f redis \
+	&& rm -rf /tmp/pear \
+	&& echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
+    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
+
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -23,7 +35,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install mysql mysqli
+RUN docker-php-ext-install mysqli
 
 # install xdebug
 # RUN pecl install xdebug
