@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
@@ -216,8 +216,6 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 --
 -- Indexes for dumped tables
---
-
 --
 -- Indexes for table `Alias`
 --
