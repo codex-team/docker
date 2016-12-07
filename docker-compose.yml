@@ -2,7 +2,7 @@ version: '2'
 
 services:
     db:
-        image: mysql
+        build: db
         ports:
             - 3306:3306
         volumes:
