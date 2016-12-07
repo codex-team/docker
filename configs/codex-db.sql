@@ -106,6 +106,39 @@ CREATE TABLE IF NOT EXISTS `Contests` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Courses`
+--
+
+CREATE TABLE IF NOT EXISTS `Courses` (
+  `id` int(10) unsigned NOT NULL,
+  `uri` varchar(128) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `text` text,
+  `description` text,
+  `cover` varchar(32) DEFAULT NULL,
+  `dt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dt_update` timestamp NULL DEFAULT NULL,
+  `is_removed` tinyint(1) NOT NULL DEFAULT '0',
+  `is_published` tinyint(1) NOT NULL DEFAULT '0',
+  `marked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Помечает курс в списке как важный'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Courses_articles`
+--
+
+CREATE TABLE IF NOT EXISTS `Courses_articles` (
+  `id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `article_index` int(11) NOT NULL COMMENT 'Порядковый номер статьи в курсе'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица для связи статей с курсами';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ForbiddenAliases`
 --
 
@@ -131,7 +164,9 @@ INSERT INTO `ForbiddenAliases` (`id`, `uri`) VALUES
 (10, 'bot'),
 (11, 'join'),
 (12, 'special'),
-(13, 'task');
+(13, 'task'),
+(14, 'course'),
+(15, 'courses');
 
 -- --------------------------------------------------------
 
@@ -276,6 +311,18 @@ ALTER TABLE `Tags_articles`
 ALTER TABLE `Users`
  ADD PRIMARY KEY (`id`);
 
+--
+-- Индексы таблицы `Courses`
+--
+ALTER TABLE `Courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
+  ADD PRIMARY KEY (`id`);
+
 
 --
 -- AUTO_INCREMENT for table `Alias`
@@ -322,6 +369,17 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `Users`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `Courses_articles`
+--
+ALTER TABLE `Courses_articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `Courses`
+--
+ALTER TABLE `Courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
 --
 -- Constraints for dumped tables
 --
