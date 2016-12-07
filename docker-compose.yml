@@ -12,6 +12,8 @@ services:
             MYSQL_DATABASE: codexdb
     redis:
         image: redis:alpine
+        ports:
+            - 6379:6379
     php:
         build: php5.6-fpm
         links:
@@ -26,6 +28,7 @@ services:
             - 8081:80
         links:
             - php
+            - redis
         volumes_from:
             - php
         volumes:
