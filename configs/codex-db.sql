@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Alias` (
 
 CREATE TABLE IF NOT EXISTS `Articles` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `title` varchar(128) NOT NULL,
   `text` text,
   `json` longtext NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `Comments` (
 
 CREATE TABLE IF NOT EXISTS `Contests` (
 `id` int(11) NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `title` varchar(128) NOT NULL,
   `description` text,
   `list_icon` varchar(100) DEFAULT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `Tags_articles` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
 `id` int(10) unsigned NOT NULL,
-  `uri` varchar(128) NOT NULL,
+  `uri` varchar(128) NULL,
   `name` varchar(128) NOT NULL,
   `vk_id` bigint(20) unsigned DEFAULT NULL,
   `vk_uri` varchar(128) DEFAULT NULL,
@@ -216,8 +216,6 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 --
 -- Indexes for dumped tables
---
-
 --
 -- Indexes for table `Alias`
 --
