@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
     libz-dev
 
 # Install memcached
-RUN pecl install memcache
-RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
+RUN apt-get -y install libmemcached-dev
+RUN pecl install memcached-2.2.0
+RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # Install redis
 RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
