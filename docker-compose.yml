@@ -14,11 +14,16 @@ services:
         image: redis:alpine
         ports:
             - 6379:6379
+    memcached:
+        image: memcached:alpine
+        ports:
+            - 11211:11211
     php:
         build: php5.6-fpm
         links:
             - db:mysqldb
             - redis
+            - memcached
         volumes:
             - ./www:/var/www/codex
             - ./logs/codex:/var/www/codex/logs
