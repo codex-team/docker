@@ -32,7 +32,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install mysql mysqli
+RUN docker-php-ext-install mysql mysqli gettext
 
 # install xdebug
 # RUN pecl install xdebug
