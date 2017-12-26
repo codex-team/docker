@@ -13,6 +13,10 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get -y install libmemcached-dev
 RUN pecl install memcached-2.2.0
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
+RUN pecl install memcache-2.2.7
+RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
+
+
 
 # Install redis
 RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
@@ -32,7 +36,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install mysql mysqli
+RUN docker-php-ext-install mysql mysqli gettext
 
 # install xdebug
 # RUN pecl install xdebug
